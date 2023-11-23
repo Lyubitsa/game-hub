@@ -6,9 +6,10 @@ import getGroppedImageUrl from "../services/image-url";
 
 interface Props {
     onSelectGenere: (genre: Genre) => void;
+    selectedGenre: Genre | null;
 }
 
-const GenreList = ({onSelectGenere}: Props) => {
+const GenreList = ({selectedGenre, onSelectGenere}: Props) => {
     const { data, isLoading, error } = useGenre();
     
     if (error) return null;
@@ -22,7 +23,7 @@ const GenreList = ({onSelectGenere}: Props) => {
                 <Image boxSize="32px"
                        borderRadius={8}
                        src={getGroppedImageUrl(genre.image_background)}/>
-                <Button onClick={() => onSelectGenere(genre)} fontSize='lg' variant='link'>{genre.name}</Button>
+                <Button fontWeight={genre.id === selectedGenre?.id ? 'bold' : 'normal'} onClick={() => onSelectGenere(genre)} fontSize='lg' variant='link'>{genre.name}</Button>
                 </HStack>
             </ListItem>
             
